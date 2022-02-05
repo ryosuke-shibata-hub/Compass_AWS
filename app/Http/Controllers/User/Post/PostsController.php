@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posts\PostMainCategory;
-use App\Models\Posts\post;
+use App\Models\Posts\Post;
 use App\Models\Users\User;
 use Auth;
 
