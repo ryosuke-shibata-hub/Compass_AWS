@@ -1,20 +1,29 @@
-$(function (){
-    $(".btn-dell").click(function(){
-        if(confirm("本当に削除しますか？")){
-            // そのままsubmit処理を実行（※削除）
-        }else{
-            // キャンセル
-            return false;
-        }
-    });
+$(function () {
 
-    function stop_process(click_execution) {
+  $(function () {
+    $('.dropdwn li').hover(function () {
+      $("ul:not(:animated)", this).slideDown();
+    }, function () {
+      $("ul.drop_menu", this).slideUp();
+    });
+  });
+
+  $(".btn-dell").click(function () {
+    if (confirm("本当に削除しますか？")) {
+      // そのままsubmit処理を実行（※削除）
+    } else {
+      // キャンセル
+      return false;
+    }
+  });
+
+  function stop_process(click_execution) {
     click_execution.css('pointer-events', 'none');
-    setTimeout(function() {
+    setTimeout(function () {
       click_execution.css('pointer-events', '');
     }, 500);
   }
-//投稿のいいね機能
+  //投稿のいいね機能
   $('.post_favorite').on('click', function () {
     var post_id = $(this).attr("post_id");
     var post_favorite_id = $(this).attr("post_favorite_id");
@@ -33,7 +42,7 @@ $(function (){
     })
 
 
-        .done(function (data) {
+      .done(function (data) {
         $('#post_favorite_count' + post_id).text(data[1]).change();
 
         if (data[0] == 0) {
@@ -50,7 +59,7 @@ $(function (){
       });
 
   });
-//コメントへのいいね機能
+  //コメントへのいいね機能
   $('.comment_favorite').on('click', function () {
     var comment_id = $(this).attr("comment_id");
     var comment_favorite_id = $(this).attr("comment_favorite_id");
@@ -64,9 +73,9 @@ $(function (){
       },
       url: '/post_comment_favorite',
       type: 'POST',
-      data: { 'comment_id':comment_id, 'comment_favorite_id':comment_favorite_id, },
+      data: { 'comment_id': comment_id, 'comment_favorite_id': comment_favorite_id, },
     })
-        .done(function (data) {
+      .done(function (data) {
         $('#comment_favorite_count' + comment_id).text(data[1]).change();
 
         if (data[0] == 0) {
@@ -83,7 +92,7 @@ $(function (){
       });
 
   });
-//カテゴリーでの検索機能
+  //カテゴリーでの検索機能
   $('#post_sub_category_search').on('change', function () {
 
     var category_id = $('option:selected').data('subcategory_id');

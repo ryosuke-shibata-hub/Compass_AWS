@@ -3,21 +3,48 @@
 @include('layouts.login.header')
 @section('contents')
 
-<label>
-  ログインユーザー：{{ Auth::user()->username }}
-</label>
-
-<p>
-  <a href="{{ route('logout') }}">ログアウト</a>
-</p>
 @can('admin')
-<p><a href="{{ route('postCategory.index') }}">カテゴリーを追加</a></p>
+<p class="create_category">
+<a type="btn" class="btn category-btn" href="{{ route('postCategory.index') }}">カテゴリーを追加</a>
+</p>
 @endcan
-<p><a href="{{ route('post.create') }}">投稿</a></p>
+<p class="create_category">
+<a type="btn" class="btn post-btn" href="{{ route('post.create') }}">投稿</a>
+</p>
+
+
+<Form action="{{ route('userPostIndex') }}" method="get">
+  <button class="btn my_post_btn"
+          type="submit"
+          name="my_post"
+          value="my_post">
+          自分の投稿
+    </button>
+</Form>
+
+<Form action="{{ route('userPostIndex') }}" method="get">
+  <button class="btn my_post_favorite_btn"
+          type="submit"
+          name="post_favorite"
+          value="post_favorite">
+          いいねした投稿
+  </button>
+</Form>
+
+<Form action="{{ route('userPostIndex') }}" method="get">
+  <input class="search_form" type="text" name="search_keyword"
+          placeholder="キーワードを検索">
+  <button class="btn search_btn"
+          type="submit"
+          >検索</button>
+</Form>
+
+
 
 <p>
-  <label>カテゴリー</label>
-  <select id="post_sub_category_search" name="post_sub_category_id">
+  <label class="category_title">カテゴリー</label>
+  <select class="post_sub_category_search"
+          id="post_sub_category_search" name="post_sub_category_id">
     <option value="">-----------------------------</option>
     @foreach($postMainCategoryList as $postMainCategoryList)
       <optgroup label="{{ $postMainCategoryList->main_category }}">
@@ -31,28 +58,9 @@
       </optgroup>
     @endforeach
   </select>
-  <label><a href="{{ route('userPostIndex') }}">リセット</a></label>
-  <Form action="{{ route('userPostIndex') }}" method="get">
-    <input type="text" name="search_keyword">
-    <button type="submit">検索</button>
-  </Form>
+  <label>
+    <a type="btn" class="btn category_reset_btn"href="{{ route('userPostIndex') }}">リセット</a></label>
 </p>
-
-<Form action="{{ route('userPostIndex') }}" method="get">
-  <button type="submit"
-          name="post_favorite"
-          value="post_favorite">
-          いいねした投稿
-  </button>
-</Form>
-
-<Form action="{{ route('userPostIndex') }}" method="get">
-  <button type="submit"
-          name="my_post"
-          value="my_post">
-          自分の投稿
-    </button>
-</Form>
 
 @foreach($posts_lists as $post_list)
   <ul>
